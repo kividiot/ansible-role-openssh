@@ -14,8 +14,16 @@
         line: AllowUsers root
       check_mode: yes
       register: openssh_check_if_allowusers_is_set
+      
+    - name: Check if AllowGroups is set
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        line: AllowGroups root
+      check_mode: yes
+      register: openssh_check_if_allowgroups_is_set
 
     - name: assert results
       assert:
         that:
           - openssh_check_if_allowusers_is_set is not changed
+          - openssh_check_if_allowgroups_is_set is not changed
